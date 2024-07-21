@@ -1,4 +1,8 @@
 document.getElementById('imageUpload').addEventListener('change', handleImageUpload);
+document.getElementById('dropArea').addEventListener('dragover', handleDragOver);
+document.getElementById('dropArea').addEventListener('dragleave', handleDragLeave);
+document.getElementById('dropArea').addEventListener('drop', handleDrop);
+document.getElementById('convertBtn').addEventListener('click', convertToPDF);
 
 let images = [];
 
@@ -22,7 +26,36 @@ function handleImageUpload(event) {
     }
 }
 
-document.getElementById('convertBtn').addEventListener('click', convertToPDF);
+function handleDragOver(event) {
+    event.preventDefault();
+    document.getElementById('dropArea').classList.add('dragover');
+}
+
+function handleDragLeave() {
+    document.getElementById('dropArea').classList.remove('dragover');
+}
+
+function handleDrop(event) {
+    event.preventDefault();
+    document.getElementById('dropArea').classList.remove('dragover');
+
+    const files = event.dataTransfer.files;
+    const messages = document.getElementById('messages');
+    messages.innerHTML = '';
+
+    for (let i = 0; i < files.length; i++) {
+        if (!files[i].type.startsWith('image/')) {
+            messages.innerHTML += `<p class="error">Unsupported file type: ${files[i].name}</p>`;
+            continue;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            images.push(e.target.result);
+        };
+        reader.readAsDataURL(files[i]);
+    }
+}
 
 async function convertToPDF() {
     const loader = document.getElementById('loader');

@@ -60,6 +60,18 @@ button:hover {
     background-color: #45a049;
 }
 
+.drop-area {
+    border: 2px dashed #4CAF50;
+    border-radius: 4px;
+    padding: 2em;
+    text-align: center;
+    margin-top: 1em;
+}
+
+.drop-area.dragover {
+    background-color: #e1f7e7;
+}
+
 #output, #messages, #loader {
     margin-top: 2em;
 }
