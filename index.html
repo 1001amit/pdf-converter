@@ -12,11 +12,15 @@
     </header>
     <main>
         <section>
+            <label for="imageUpload" class="file-label">Choose Images</label>
             <input type="file" id="imageUpload" multiple>
             <button id="convertBtn">Convert to PDF</button>
         </section>
-        <section id="output">
-            <!-- PDF preview or download link will appear here -->
+        <section id="output"></section>
+        <section id="messages"></section>
+        <section id="loader" class="hidden">
+            <div class="spinner"></div>
+            <p>Converting...</p>
         </section>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
